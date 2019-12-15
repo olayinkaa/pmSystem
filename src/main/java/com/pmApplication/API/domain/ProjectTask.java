@@ -44,7 +44,7 @@ public class ProjectTask {
 	@JsonIgnore
 	private Backlog backlog;
 	
-	//ManyToOne with  backlog
+
 	@Column(updatable = false)
 	private String projectIdentifier;
 	

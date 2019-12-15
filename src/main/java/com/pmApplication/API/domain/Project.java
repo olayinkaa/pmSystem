@@ -10,10 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Project {
@@ -55,6 +58,7 @@ public class Project {
 //	Relationship ------------------
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+	@JsonIgnore
 	private Backlog backlog;
 	
 	
@@ -216,17 +220,18 @@ public class Project {
 
 
 
-
+	@PrePersist
 	protected void onCreate()
 	{
 		this.created_At = new Date();
 	}
 	
+	@PreUpdate
 	protected void onUpdate()
 	{
 		this.updated_At = new Date();
 	}
-	
+
 	
 	
 	

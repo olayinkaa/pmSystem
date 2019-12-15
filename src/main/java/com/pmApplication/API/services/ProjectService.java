@@ -19,7 +19,7 @@ public class ProjectService {
 	@Autowired
 	private BacklogRepository backlogRepository;
 	
-	
+
 	public Project saveOrUpdate(Project project)
 	{
 		try
@@ -32,6 +32,7 @@ public class ProjectService {
 				project.setBacklog(backlog);
 				backlog.setProject(project);
 				backlog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+				
 			}
 			
 			if(project.getId()!=null)
