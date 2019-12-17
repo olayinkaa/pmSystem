@@ -39,7 +39,7 @@ public class Backlog {
 	
 //Relationship : OneToMany
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="backlog") //this create a 'backlog_id' on ProjectTask table
+	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy="backlog",orphanRemoval=true) //this create a 'backlog_id' on ProjectTask table
 	private List<ProjectTask> projectTasks = new ArrayList<>();
 	
 //  Not Argument Constructor

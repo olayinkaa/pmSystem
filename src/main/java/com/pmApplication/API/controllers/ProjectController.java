@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,15 +19,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pmApplication.API.domain.GenericResponse;
 import com.pmApplication.API.domain.Project;
 import com.pmApplication.API.services.MapValidationErrorService;
 import com.pmApplication.API.services.ProjectService;
 
 @RestController
 @RequestMapping("/api/project")
+@CrossOrigin
 public class ProjectController {
 
-	@Autowired
+	@Autowired 
 	private ProjectService projectService;
 	
 	@Autowired
@@ -59,7 +62,7 @@ public class ProjectController {
 		
 		Project newProject = projectService.saveOrUpdate(project);
 		
-		return new ResponseEntity<Project>(newProject,HttpStatus.CREATED);
+		return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Project Successfully Created",newProject),HttpStatus.CREATED);
 	}
 	
 	
