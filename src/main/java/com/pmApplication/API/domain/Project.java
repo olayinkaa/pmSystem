@@ -18,9 +18,15 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModel;
+
+
+@ApiModel(description="This model is to create a project")
 @Entity
 public class Project {
 
+	
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +34,8 @@ public class Project {
 	
 	@NotBlank(message="Project name is required")
 	private String projectName;
+	
+	
 	
 	@NotBlank(message = "Project Identifier is required")
 	@Size(min=4, max=6, message="Please use 4 to 5 characters")

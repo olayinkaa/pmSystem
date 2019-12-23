@@ -24,6 +24,12 @@ import com.pmApplication.API.domain.Project;
 import com.pmApplication.API.services.MapValidationErrorService;
 import com.pmApplication.API.services.ProjectService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
+@Api(tags="Project Management CRUD, RESTFUL services",value="ProjectController",description="controller for Project Management")
 @RestController
 @RequestMapping("/api/project")
 @CrossOrigin
@@ -37,8 +43,9 @@ public class ProjectController {
 
 	
 // createNewProject
+	@ApiOperation(value="Create New Project")
 	@PostMapping
-	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result)
+	public ResponseEntity<?> createNewProject(@ApiPar am("Project information for new project") @Valid @RequestBody Project project, BindingResult result)
 	{
 
 /*
@@ -77,6 +84,7 @@ public class ProjectController {
 	}
 	
 //	getAllProjects
+	@ApiOperation(value="Query List of Projects")
 	@GetMapping
 	public ResponseEntity<?> getAllProjects()
 	{

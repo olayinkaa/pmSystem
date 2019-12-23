@@ -106,8 +106,6 @@ public class ProjectTaskService {
 		return projectTask;
 		
 		
-		
-		
 	}
 	
 	
@@ -132,11 +130,6 @@ public class ProjectTaskService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
+
 	
 }

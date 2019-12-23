@@ -31,6 +31,8 @@ public class ProjectTask {
 	
 	@NotBlank(message="please include a project summary")
 	private String summary;
+	
+	
 	private String acceptanceCriteria;
 	private String status;
 	private Integer priority;
@@ -216,10 +218,6 @@ public class ProjectTask {
 				+ ", dueDate=" + dueDate + ", projectIdentifier=" + projectIdentifier + ", created_At=" + created_At
 				+ ", updated_At=" + updated_At + "]";
 	}
-	
-	
-
-	
 	
 	
 	
