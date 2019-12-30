@@ -85,6 +85,20 @@ public class Project {
 
 
 
+	public Project(String projectName,String projectIdentifier,String description, Date start_date, Date end_date,Backlog backlog) {
+		super();
+		this.projectName = projectName;
+		this.projectIdentifier = projectIdentifier;
+		this.description = description;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.backlog = backlog;
+	}
+
+
+
+
+
 	public Long getId() {
 		return id;
 	}

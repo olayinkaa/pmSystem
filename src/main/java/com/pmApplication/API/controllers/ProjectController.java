@@ -5,6 +5,7 @@ package com.pmApplication.API.controllers;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pmApplication.API.domain.GenericResponse;
 import com.pmApplication.API.domain.Project;
+import com.pmApplication.API.dtos.ProjectMmDto;
 import com.pmApplication.API.services.MapValidationErrorService;
 import com.pmApplication.API.services.ProjectService;
 
@@ -29,7 +31,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 
-@Api(tags="Project Management CRUD, RESTFUL services",value="ProjectController",description="controller for Project Management")
+
+@Api(tags="Project CRUD",value="ProjectController",description="controller for Project Management")
 @RestController
 @RequestMapping("/api/project")
 @CrossOrigin
@@ -41,11 +44,13 @@ public class ProjectController {
 	@Autowired
 	private MapValidationErrorService mapValidationErrorService;
 
+	@Autowired
+	private ModelMapper modelMapper;
 	
 // createNewProject
 	@ApiOperation(value="Create New Project")
 	@PostMapping
-	public ResponseEntity<?> createNewProject(@ApiPar am("Project information for new project") @Valid @RequestBody Project project, BindingResult result)
+	public ResponseEntity<?> createNewProject(@ApiParam("Project information for new project") @Valid @RequestBody Project project, BindingResult result)
 	{
 
 /*
@@ -67,6 +72,8 @@ public class ProjectController {
 		ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
 		if(errorMap!=null) return errorMap;
 		
+		
+		
 		Project newProject = projectService.saveOrUpdate(project);
 		
 		return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Project Successfully Created",newProject),HttpStatus.CREATED);
@@ -74,12 +81,25 @@ public class ProjectController {
 	
 	
 //	getProjectById
+	@ApiOperation(value="Query a Project")
 	@GetMapping("/{projectId}")
 	public ResponseEntity<?> getProjectById(@PathVariable String projectId)
 	{
 		Project project = projectService.findProjectByIdentifier(projectId);
 		
 		return new ResponseEntity<Project>(project,HttpStatus.OK);
+		
+		
+	}
+	
+	@GetMapping("/modelmapper/{projectId}")
+	public ResponseEntity<?> getModelMapperProjectById(@PathVariable String projectId)
+	{
+		Project project = projectService.findProjectByIdentifier(projectId);
+		
+		 
+		ProjectMmDto projectDto = modelMapper.map(project,ProjectMmDto.class);
+		return new ResponseEntity<ProjectMmDto>(projectDto,HttpStatus.OK);
 		
 	}
 	
@@ -96,6 +116,7 @@ public class ProjectController {
 	
 	
 //	deleteProject
+	@ApiOperation(value="Delete a Project")
 	@DeleteMapping("/{projectId}")
 	public ResponseEntity<?> deleteProject(@PathVariable String projectId)
 	{
@@ -103,6 +124,11 @@ public class ProjectController {
 		
 		return new ResponseEntity<String>("Project with ID '"+projectId+"' was deleted",HttpStatus.OK);
 	}
+	
+	
+	
+	
+	
 	
 	
 	
